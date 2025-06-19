@@ -1,19 +1,22 @@
 import express from 'express'
 import noteRoutes from './routes/noteRoutes.js';
 import { connectDb } from './config/db.js';
-
 import rateLimiter from './middleware/rateLimiter.js';
-// import the dotenv package
 import dotenv from 'dotenv'
-// call the dotenv config in server
+
+// import the cors
+import cors from 'cors'
 dotenv.config()
 
 const app = express();
 const PORT = process.env.PORT || 5001
 await connectDb();
-
+// use cors middlware
+app.use(cors({
+    // it can be an array. you can whitelist different links
+    origin: 'http://localhost:5173',
+}))
 app.use(express.json());
-// use the middleware
 app.use(rateLimiter)
 app.use('/api/notes', noteRoutes)
 
