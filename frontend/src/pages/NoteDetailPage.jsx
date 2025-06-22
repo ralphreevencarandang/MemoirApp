@@ -1,9 +1,10 @@
 import React from 'react'
-
+import { useParams } from 'react-router'
 const NoteDetailPage = () => {
+  const {id} = useParams()
   return (
     <div>
-        Note details
+        Note details {id}
     </div>
   )
 }
