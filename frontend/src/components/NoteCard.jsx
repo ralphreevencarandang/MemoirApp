@@ -2,12 +2,13 @@ import { Trash2Icon, PenSquareIcon } from "lucide-react";
 import { formatDate } from "../lib/utils.js";
 import { Link } from "react-router";
 import { useMutation } from "@tanstack/react-query";
-
+import { useState } from "react";
 import axios from '../config/axios.js'
 import toast from "react-hot-toast";
 
 const NoteCard = ({ note, refetch }) => {
 
+   
     const mutation = useMutation({
     mutationFn: async(e)=>{
       e.preventDefault();
@@ -19,6 +20,7 @@ const NoteCard = ({ note, refetch }) => {
       } catch (error) {
         console.log(error)
         if(error.response.status == 429){
+          setRateLimited(true)
           toast.error('Too many request, please slow down', {
             icon: "💀"
           })
@@ -26,15 +28,13 @@ const NoteCard = ({ note, refetch }) => {
         toast.error('Failed to delete note')
       }
     },
-  
-    
   })
 
   return (
             <Link
-            to={`/notes/${note._id}`}
-            className="card bg-base-100 hover:shadow-lg transition-all duration-200 
-            border-t-4 border-solid border-[#00FF9D]"
+              to={ `/notes/${note._id}`}
+              className="card bg-base-100 hover:shadow-lg transition-all duration-200 
+              border-t-4 border-solid border-[#00FF9D]"
             >
             <div className="card-body">
                 <h3 className="card-title text-base-content">{note.title}</h3>
