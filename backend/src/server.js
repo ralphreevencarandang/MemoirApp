@@ -19,7 +19,7 @@ await connectDb();
 
   app.use(
     cors({
-      origin: "https://memoirapp-frontend.onrender.com/",
+      origin: "https://memoirapp-frontend.onrender.com",
     })
   );
 
