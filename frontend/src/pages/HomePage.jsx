@@ -45,7 +45,9 @@ const HomePage = () => {
           {error && <p className="text-primary text-center font-bold">{error}</p>}
           {data?.length > 0 && !rateLimited ?  (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {data.map(note => 
+              {[...data]
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .map(note => 
                   <NoteCard  note={note} key={note._id} refetch={refetch}/>
               )}
             </div>
