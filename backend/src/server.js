@@ -16,13 +16,13 @@ const PORT = process.env.PORT || 5001
 await connectDb();
 // use cors middlware
 
-if (process.env.NODE_ENV !== "production") {
+
   app.use(
     cors({
       origin: "https://memoirapp-frontend.onrender.com/",
     })
   );
-}
+
 
 app.use(express.json());
 app.use(rateLimiter)
